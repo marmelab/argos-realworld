@@ -33,3 +33,9 @@ setup-test: install-admin-deps test-docker-build test-docker-environment-start  
 
 run-test: ## Start automated tests
 	$(DOCKER_COMPOSE_TEST) run --rm --no-deps --name=client_cypress_run cypress bash -ci 'npm wait-and-test'
+
+dump:
+	mongodump --gzip --archive=data/dump.zip --uri mongodb://localhost:27017/conduit
+
+restore:
+	mongorestore --gzip --archive=data/dump.zip --uri mongodb://localhost:27017/conduit
