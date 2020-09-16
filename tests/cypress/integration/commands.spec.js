@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context("Commands", () => {
+context("Articles", () => {
   beforeEach(() => {
     cy.visit("/#/commands");
     // wait till datagrid loads its rows
@@ -13,7 +13,7 @@ context("Commands", () => {
 
   it("should navigate on commands list", () => {
     cy.contains("Next").click({ force: true });
-     cy.get(".MuiLinearProgress-bar1Indeterminate", { timeout: 120000 }).should(
+    cy.get(".MuiLinearProgress-bar1Indeterminate", { timeout: 120000 }).should(
       "exist"
     );
     cy.contains("26-50 of 400").should("exist");
@@ -21,7 +21,7 @@ context("Commands", () => {
       "not.exist"
     );
     cy.contains("Next").click({ force: true });
-     cy.get(".MuiLinearProgress-bar1Indeterminate", { timeout: 120000 }).should(
+    cy.get(".MuiLinearProgress-bar1Indeterminate", { timeout: 120000 }).should(
       "exist"
     );
     cy.contains("51-75 of 400").should("exist");
@@ -29,7 +29,7 @@ context("Commands", () => {
       "not.exist"
     );
     cy.contains("Next").click({ force: true });
-     cy.get(".MuiLinearProgress-bar1Indeterminate", { timeout: 120000 }).should(
+    cy.get(".MuiLinearProgress-bar1Indeterminate", { timeout: 120000 }).should(
       "exist"
     );
     cy.contains("76-100 of 400").should("exist");
