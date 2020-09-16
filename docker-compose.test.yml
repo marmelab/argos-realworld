@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  cypress:
+    image: cypress/included:5.1.0
+    depends_on:
+      - client
+      - api
+    volumes:
+      - ./tests:/app
+    working_dir: /app
+    links:
+      - "client:client"

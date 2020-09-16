@@ -1,0 +1,9 @@
+version: "3.5"
+
+services:
+    cypress:
+        environment:
+            - DISPLAY
+        volumes:
+            - ./tests:/app
+            - /tmp/.X11-unix:/tmp/.X11-unix

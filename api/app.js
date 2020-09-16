@@ -33,11 +33,9 @@ app.use(
   })
 );
 
-//if (!isProduction) {
-app.use(errorhandler());
-//}
-//console.log("isProduction", isProduction);
-//console.log("process.env.MONGODB_URI", process.env.MONGODB_URI);
+if (!isProduction) {
+  app.use(errorhandler());
+}
 if (isProduction) {
   mongoose.connect(process.env.MONGODB_URI);
 } else {

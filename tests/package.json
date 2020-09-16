@@ -1,0 +1,15 @@
+{
+  "name": "tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "wait-and-test": "server-test http-get://client:4100 test",
+    "start": "python -m SimpleHTTPServer 9000",
+    "test": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^5.1.0",
+    "start-server-and-test": "^1.11.3"
+  }
+}
