@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  client:
+    image: node:12
+    command: "yarn run start"
+    working_dir: /app/client
+    stdin_open: true
+    volumes:
+      - ".:/app"
+    environment:
+      - PORT=4100
+      - NODE_ENV=production
+    ports:
+      - "4100:4100"
+
+  api:
+    image: node:12
+    command: "yarn run start"
+    working_dir: /app/api
+    volumes:
+      - ".:/app"
+    environment:
+      - PORT=4000
+      - NODE_ENV=production
+      - SECRET=conduit
+      - MONGODB_URI=mongodb://mongo:27017/conduit
+    ports:
+      - "2000:4000"
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    command: mongod --storageEngine=wiredTiger
+    ports:
+      - 27017:27017
