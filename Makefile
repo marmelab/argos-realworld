@@ -6,14 +6,18 @@ DOCKER_COMPOSE_TEST = docker-compose -p film-db -f docker-compose.yml -f docker-
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | gawk 'match($$0, /(makefile:)?(.*):.*?## (.*)/, a) {printf "\033[36m%-30s\033[0m %s\n", a[2], a[3]}'
 
+install: ## Install all dependencies
+	cd ./api && yarn
+	cd ./client && yarn
+
 start: ## Start project inside docker (Db, API and Client)
 	docker-compose up
 
 import-db:
 	docker-compose exec db sh -c "psql --username=test foobar < app/data/pagila-insert-data.sql"
 
-install-admin-deps:
-	docker-compose run client npm install
+install-client-deps:
+	docker-compose run client yarn install
 
 test-docker-build:
 	$(DOCKER_COMPOSE_TEST) run client yarn build
@@ -26,16 +30,16 @@ test-docker-environment-start:
 
 
 test-open: ## Start local tests
-	cd tests && npm run cypress open
+	cd tests && yarn run cypress open
 
 
-setup-test: install-admin-deps test-docker-build test-docker-environment-start  ## Setup tests
+setup-test: install-client-deps test-docker-build test-docker-environment-start  ## Setup tests
 
 run-test: ## Start automated tests
-	$(DOCKER_COMPOSE_TEST) run --rm --no-deps --name=client_cypress_run cypress bash -ci 'npm wait-and-test'
+	$(DOCKER_COMPOSE_TEST) run --rm --no-deps --name=client_cypress_run cypress bash -ci 'yarn wait-and-test'
 
 dump:
-	mongodump --gzip --archive=data/dump.zip --uri mongodb://localhost:27017/conduit
+	mongodump --gzip --archive=data/dump.zip --uri mongodb://localhost:27027/conduit
 
 restore:
-	mongorestore --gzip --archive=data/dump.zip --uri mongodb://localhost:27017/conduit
+	mongorestore --gzip --archive=data/dump.zip --uri mongodb://localhost:27027/conduit
