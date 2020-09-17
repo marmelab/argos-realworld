@@ -1,15 +1,12 @@
-import filler from "./FormFiller";
-
-const formClass = "btn-primary";
-
 export default (url) => ({
   elements: {
-    title: "",
-    description: "body",
-    body: (name, type = "input") => `.${formClass} ${type}[name='${name}']`,
-    tagList: `.form-tab`,
-    publishButton: `form button[type='button']`,
-    tab: (index) => `.form-tab:nth-of-type(${index})`,
+    input: {
+      title: `input[type='text'][placeholder="Article Title"]`,
+      description: `input[type='text'][placeholder="What's this article about?"]`,
+      body: "textarea",
+      tagList: `input[type='text'][placeholder="Enter tags"]`,
+    },
+    publishButton: `form button.btn-primary[type='button']`,
   },
 
   navigate() {
@@ -22,16 +19,22 @@ export default (url) => ({
   },
 
   getInputValue(name) {
-    return cy.get(this.elements.input(name));
+    return cy.get(this.elements.input[name]);
   },
 
   clickInput(name) {
-    cy.get(this.elements.input(name)).click();
+    cy.get(this.elements.input[name]).click();
+  },
+
+  fillForm(values) {
+    Object.keys(values).map((key) => {
+      const value = values[key];
+      cy.get(this.elements.input[key]).type(value);
+      return value;
+    });
   },
 
   publish() {
-    cy.get(this.elements.publishButton).first().click();
+    cy.get(this.elements.publishButton).click();
   },
-
-  ...filler(formClass),
 });

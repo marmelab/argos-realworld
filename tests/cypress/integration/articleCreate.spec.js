@@ -7,14 +7,11 @@ describe("Article Create", () => {
   const ListPage = listPageFactory("/");
   const EditPage = editPageFactory("/editor");
 
-  const investorValues = {
-    first_name: "Florian",
-    login: "1234",
-    email: "florian@marmelab.com",
-  };
   const articleValues = {
     title: "Test Article",
-    conviction: 2,
+    description: "An article",
+    body: "The body of the article",
+    tagList: "boring new fresh",
   };
 
   before(() => {
@@ -33,35 +30,14 @@ describe("Article Create", () => {
     LoginPage.isLoggedIn();
   });
 
-  const inputValues = [
-    {
-      type: "textarea",
-      name: "title",
-      value: "New title",
-    },
-  ];
-
   it("should create a new article", () => {
     EditPage.navigate();
-    /*ListPage.waitUntilTitleIsVisible().contains("Ideas");
-    ListPage.waitUntilRowsAreVisible();
-    ListPage.getFirstRow().contains(articleValues.title);*/
+    EditPage.fillForm(articleValues);
+    EditPage.publish();
+    ListPage.navigate();
+    ListPage.goToGlobalFeed();
+    ListPage.waitUntilRowIsVisible(articleValues.title);
   });
-
-  /*it("should edit the first suggestion", () => {
-    ListPage.waitUntilTitleIsVisible();
-    ListPage.waitUntilRowsAreVisible();
-    ListPage.selectFirstRowEditLink();
-
-    const EditPage = editPageFactory(cy.url());
-    EditPage.waitUntilTitleIsVisible();
-    EditPage.setValues(inputValues);
-    EditPage.submit();
-
-    ListPage.waitUntilTitleIsVisible();
-    ListPage.waitUntilRowsAreVisible();
-    ListPage.getFirstRow().contains(inputValues[0].value);
-  });*/
 
   after(() => {
     //cy.fixtures_reset();
