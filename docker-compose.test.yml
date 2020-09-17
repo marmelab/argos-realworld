@@ -11,3 +11,10 @@ services:
     working_dir: /app
     links:
       - "client:client"
+      - "api:api"
+
+  client:
+    environment:
+      - REACT_APP_API_ROOT=http://api:4000/api
+      - PORT=4100
+      - NODE_ENV=production

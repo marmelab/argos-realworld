@@ -19,11 +19,12 @@ start: ## Start project inside docker (Db, API and Client)
 import-db:
 	docker-compose exec db sh -c "psql --username=test foobar < app/data/pagila-insert-data.sql"
 
-install-client-deps:
-	docker-compose run client yarn
+install-test-deps:
+	cd ./tests && yarn
+	#docker-compose run client yarn
 
 test-docker-build:
-	$(DOCKER_COMPOSE_TEST) run client yarn build
+	#$(DOCKER_COMPOSE_TEST) run client yarn build
 
 test-docker-environment-start:
 	$(DOCKER_COMPOSE_TEST) up -d
@@ -33,7 +34,7 @@ test-open: ## Start local tests
 	cd tests && yarn run cypress open
 
 
-setup-test: install build test-docker-environment-start  ## Setup tests
+setup-test: install build install-test-deps test-docker-environment-start  ## Setup tests
 
 run-test: ## Start automated tests
 	$(DOCKER_COMPOSE_TEST) run --rm --no-deps --name=client_cypress_run cypress bash -ci 'yarn wait-and-test'

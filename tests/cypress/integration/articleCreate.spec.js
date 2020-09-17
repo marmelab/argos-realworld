@@ -2,7 +2,7 @@ import loginPageFactory from "../support/LoginPage";
 import listPageFactory from "../support/ListPage";
 import editPageFactory from "../support/EditPage";
 
-describe("Ideas Edit Page", () => {
+describe("Article Create", () => {
   const LoginPage = loginPageFactory("/login");
   const ListPage = listPageFactory("/");
   const EditPage = editPageFactory("/editor");
@@ -13,7 +13,7 @@ describe("Ideas Edit Page", () => {
     email: "florian@marmelab.com",
   };
   const articleValues = {
-    title: "Test idea",
+    title: "Test Article",
     conviction: 2,
   };
 
@@ -30,9 +30,7 @@ describe("Ideas Edit Page", () => {
   beforeEach(() => {
     LoginPage.navigate();
     LoginPage.login();
-    /*ListPage.selectMenuItem("Ideas");
-    ListPage.selectSubMenuItem("Ideas");
-    ListPage.waitUntilRowsAreVisible();*/
+    LoginPage.isLoggedIn();
   });
 
   const inputValues = [
@@ -66,6 +64,6 @@ describe("Ideas Edit Page", () => {
   });*/
 
   after(() => {
-    cy.fixtures_reset();
+    //cy.fixtures_reset();
   });
 });

@@ -1,68 +1,37 @@
-import filler from './FormFiller';
+import filler from "./FormFiller";
 
-const formClass = 'edit-page';
+const formClass = "btn-primary";
 
-export default url => ({
-    elements: {
-        body: 'body',
-        input: (name, type = 'input') =>
-            `.${formClass} ${type}[name='${name}']`,
-        tabs: `.form-tab`,
-        submitButton: `.${formClass} button[type='submit']`,
-        tab: index => `.form-tab:nth-of-type(${index})`,
-        title: '#react-admin-title',
-    },
+export default (url) => ({
+  elements: {
+    title: "",
+    description: "body",
+    body: (name, type = "input") => `.${formClass} ${type}[name='${name}']`,
+    tagList: `.form-tab`,
+    publishButton: `form button[type='button']`,
+    tab: (index) => `.form-tab:nth-of-type(${index})`,
+  },
 
-    navigate() {
-        cy.visit(url);
-        this.waitUntilTitleIsVisible();
-    },
+  navigate() {
+    cy.visit(url);
+    this.waitUntilVisible();
+  },
 
-    waitUntilTitleIsVisible() {
-        return cy.get(this.elements.title);
-    },
+  waitUntilVisible() {
+    return cy.get(this.elements.publishButton);
+  },
 
-    waitUntilDataLoaded() {
-        return cy.get(this.elements.appLoader);
-    },
+  getInputValue(name) {
+    return cy.get(this.elements.input(name));
+  },
 
-    getInputValue(name) {
-        return cy.get(this.elements.input(name));
-    },
+  clickInput(name) {
+    cy.get(this.elements.input(name)).click();
+  },
 
-    clickInput(name) {
-        cy.get(this.elements.input(name)).click();
-    },
+  publish() {
+    cy.get(this.elements.publishButton).first().click();
+  },
 
-    gotoTab(index) {
-        cy.get(this.elements.tab(index)).click();
-    },
-
-    gotoTabName(name) {
-        cy.get(this.elements.tabs)
-            .contains(name)
-            .click();
-    },
-
-    submit() {
-        cy.get(this.elements.submitButton)
-            .first()
-            .click();
-    },
-
-    clickButton(text) {
-        cy.get(`.${formClass}`)
-            .contains(text)
-            .first()
-            .click();
-    },
-
-    selectListButton() {
-        return cy
-            .get('a')
-            .contains('List')
-            .click();
-    },
-
-    ...filler(formClass),
+  ...filler(formClass),
 });
