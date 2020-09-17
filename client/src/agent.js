@@ -4,6 +4,7 @@ import _superagent from "superagent";
 const superagent = superagentPromise(_superagent, global.Promise);
 
 const API_ROOT = "http://localhost:4000/api";
+//const API_ROOT = "https://conduit.productionready.io/api";
 
 const encode = encodeURIComponent;
 const responseBody = (res) => res.body;
@@ -15,25 +16,49 @@ const tokenPlugin = (req) => {
   }
 };
 
+const loginErrorManager = (error) => {
+  if (error && error.status === 401) {
+    console.log("401 ERROR - Invalid session -> Go to login");
+    window.localStorage.setItem("jwt", "");
+    token = null;
+    window.location = "/login";
+  }
+};
+
 const requests = {
   del: (url) =>
-    superagent.del(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
+    superagent
+      .del(`${API_ROOT}${url}`)
+      .use(tokenPlugin)
+      .then(responseBody)
+      .catch((error) => {
+        loginErrorManager(error);
+      }),
   get: (url) =>
     superagent
       .get(`${API_ROOT}${url}`)
       .set("Access-Control-Allow-Origin", "*")
       .use(tokenPlugin)
-      .then(responseBody),
+      .then(responseBody)
+      .catch((error) => {
+        loginErrorManager(error);
+      }),
   put: (url, body) =>
     superagent
       .put(`${API_ROOT}${url}`, body)
       .use(tokenPlugin)
-      .then(responseBody),
+      .then(responseBody)
+      .catch((error) => {
+        loginErrorManager(error);
+      }),
   post: (url, body) =>
     superagent
       .post(`${API_ROOT}${url}`, body)
       .use(tokenPlugin)
-      .then(responseBody),
+      .then(responseBody)
+      .catch((error) => {
+        loginErrorManager(error);
+      }),
 };
 
 const Auth = {
