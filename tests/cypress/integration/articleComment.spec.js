@@ -1,18 +1,11 @@
 import loginPageFactory from "../support/LoginPage";
 import listPageFactory from "../support/ListPage";
-import editPageFactory from "../support/EditPage";
+import articlePageFactory from "../support/ArticlePage";
 
-describe("Article Create", () => {
+describe("Article Comment", () => {
   const LoginPage = loginPageFactory("/login");
   const ListPage = listPageFactory("/");
-  const EditPage = editPageFactory("/editor");
-
-  const articleValues = {
-    title: "Test Article",
-    description: "An article",
-    body: "The body of the article",
-    tagList: "boring new fresh",
-  };
+  const ArticlePage = articlePageFactory();
 
   before(() => {
     /*cy.fixtures_reset();
@@ -30,13 +23,14 @@ describe("Article Create", () => {
     LoginPage.isLoggedIn();
   });
 
-  it("should create a new article", () => {
-    EditPage.navigate();
-    EditPage.fillForm(articleValues);
-    EditPage.publish();
+  it("should comment an article", () => {
     ListPage.navigate();
     ListPage.goToGlobalFeed();
-    ListPage.waitUntilRowIsVisible(articleValues.title);
+    ListPage.openArticle(1);
+
+    const commentText = "I didn't undertand anything";
+    ArticlePage.comment(commentText);
+    ArticlePage.waitUntilTextVisible(commentText);
   });
 
   afterEach(() => {
