@@ -1,6 +1,6 @@
 default: help
 
-DOCKER_COMPOSE_TEST = docker-compose -p film-db -f docker-compose.yml -f docker-compose.test.yml
+DOCKER_COMPOSE_TEST = docker-compose -p conduit -f docker-compose.yml -f docker-compose.test.yml
 
 
 help:
@@ -25,8 +25,6 @@ test-docker-build:
 test-docker-environment-start:
 	$(DOCKER_COMPOSE_TEST) up -d
 	$(MAKE) test-docker-build
-	#$(MAKE) test-update-db
-	#$(MAKE) test-load-fixtures
 
 
 test-open: ## Start local tests
