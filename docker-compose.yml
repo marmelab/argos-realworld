@@ -24,7 +24,7 @@ services:
       - PORT=4000
       - NODE_ENV=production
       - SECRET=conduit
-      - MONGODB_URI=mongodb://mongo:27017/conduit
+      - MONGODB_URI=mongodb://mongo:27027/conduit
     ports:
       - "4000:4000"
     depends_on:
@@ -32,6 +32,6 @@ services:
 
   mongo:
     image: mongo:latest
-    command: mongod --storageEngine=wiredTiger
+    command: mongod --port 27027 --storageEngine=wiredTiger
     ports:
-      - 27017:27017
+      - 27027:27027
