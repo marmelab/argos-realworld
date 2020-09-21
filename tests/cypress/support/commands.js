@@ -25,26 +25,15 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import 'cypress-testing-library/add-commands';
 
-Cypress.Commands.add('fixtures_reset', () => {
-    cy.request({
-        url: 'http://localhost:3001/test/reset-cypress', // assuming you've exposed a seeds route
-        method: 'GET',
-    }).its('body');
-});
-
-Cypress.Commands.add('fixtures_load', (type, data = {}) => {
-    cy.request({
-        url: `http://localhost:3001/test/${type}`,
-        method: 'POST',
-        body: data,
-    }).then(response => {
-        if (response.status !== 200) {
-            throw Error(
-                `Error during load fixture with ${response.status} status code`
-            );
-        }
-        return response.body;
-    });
+/** Empty database and import default fixtures */
+Cypress.Commands.add('resetFixtures', () => {
+    return cy
+        .exec(`cd .. && pwd && make restore`)
+        .then(({ code, stderr }) => {
+            if (code && stderr) {
+                cy.task('error', { command: 'resetFixtures', code, stderr });
+            }
+        });
 });
 
 Cypress.Screenshot.defaults({ timeout: 60000 });

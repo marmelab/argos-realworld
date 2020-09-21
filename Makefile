@@ -9,6 +9,7 @@ help:
 install: ## Install all dependencies
 	cd ./api && yarn
 	cd ./client && yarn
+	cd ./tests && yarn
 
 build: ## Build client
 	cd ./client && yarn build

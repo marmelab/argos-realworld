@@ -14,16 +14,6 @@ describe("Article Create", () => {
     tagList: "boring new fresh",
   };
 
-  before(() => {
-    /*cy.fixtures_reset();
-    cy.fixtures_load("investor", investorValues).then(({ id: investor_id }) =>
-      cy.fixtures_load("idea", {
-        ...articleValues,
-        lead_id: investor_id,
-      })
-    );*/
-  });
-
   beforeEach(() => {
     LoginPage.navigate();
     LoginPage.login();
@@ -41,9 +31,5 @@ describe("Article Create", () => {
 
   afterEach(() => {
     LoginPage.logout();
-  });
-
-  after(() => {
-    //cy.fixtures_reset();
   });
 });

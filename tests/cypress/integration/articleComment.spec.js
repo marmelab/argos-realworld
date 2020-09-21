@@ -7,16 +7,6 @@ describe("Article Comment", () => {
   const ListPage = listPageFactory("/");
   const ArticlePage = articlePageFactory();
 
-  before(() => {
-    /*cy.fixtures_reset();
-    cy.fixtures_load("investor", investorValues).then(({ id: investor_id }) =>
-      cy.fixtures_load("idea", {
-        ...articleValues,
-        lead_id: investor_id,
-      })
-    );*/
-  });
-
   beforeEach(() => {
     LoginPage.navigate();
     LoginPage.login();
@@ -35,9 +25,5 @@ describe("Article Comment", () => {
 
   afterEach(() => {
     LoginPage.logout();
-  });
-
-  after(() => {
-    //cy.fixtures_reset();
   });
 });
