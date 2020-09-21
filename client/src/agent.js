@@ -3,7 +3,7 @@ import _superagent from "superagent";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = "http://localhost:4000/api";
+const API_ROOT = process.env.REACT_APP_API_ROOT || "http://localhost:4000/api";
 //const API_ROOT = "https://conduit.productionready.io/api";
 
 const encode = encodeURIComponent;
@@ -17,8 +17,9 @@ const tokenPlugin = (req) => {
 };
 
 const loginErrorManager = (error) => {
-  if (error && error.status === 401) {
-    console.log("401 ERROR - Invalid session -> Go to login");
+  //The API returns 401 when current token is revoked, but also 422 when login is unknown
+  if (error && [401, 422].includes(error.status)) {
+    console.log(`${error.status} ERROR - Invalid session -> Go to login page`);
     window.localStorage.setItem("jwt", "");
     token = null;
     window.location = "/login";

@@ -21,5 +21,30 @@
 // Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
 //
 //
-// -- This will overwrite an existing command --
+// -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+import 'cypress-testing-library/add-commands';
+
+Cypress.Commands.add('fixtures_reset', () => {
+    cy.request({
+        url: 'http://localhost:3001/test/reset-cypress', // assuming you've exposed a seeds route
+        method: 'GET',
+    }).its('body');
+});
+
+Cypress.Commands.add('fixtures_load', (type, data = {}) => {
+    cy.request({
+        url: `http://localhost:3001/test/${type}`,
+        method: 'POST',
+        body: data,
+    }).then(response => {
+        if (response.status !== 200) {
+            throw Error(
+                `Error during load fixture with ${response.status} status code`
+            );
+        }
+        return response.body;
+    });
+});
+
+Cypress.Screenshot.defaults({ timeout: 60000 });
