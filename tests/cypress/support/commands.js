@@ -23,17 +23,19 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-import 'cypress-testing-library/add-commands';
+import "cypress-testing-library/add-commands";
 
 /** Empty database and import default fixtures */
-Cypress.Commands.add('resetFixtures', () => {
-    return cy
-        .exec(`cd .. && pwd && make restore`)
-        .then(({ code, stderr }) => {
-            if (code && stderr) {
-                cy.task('error', { command: 'resetFixtures', code, stderr });
-            }
-        });
+Cypress.Commands.add("resetFixtures", () => {
+  return cy
+    .exec(
+      `mongo --quiet --eval 'db.getMongo().getDBNames().forEach(function(i){db.getSiblingDB(i).dropDatabase()})' mongodb://mongo:27027/conduit && mongorestore --gzip --archive=data/dump.zip --uri mongodb://mongo:27027/conduit`
+    )
+    .then(({ code, stderr }) => {
+      if (code && stderr) {
+        cy.task("error", { command: "resetFixtures", code, stderr });
+      }
+    });
 });
 
 Cypress.Screenshot.defaults({ timeout: 60000 });
