@@ -28,8 +28,10 @@ test-docker-build:
 	#$(DOCKER_COMPOSE_TEST) run client yarn build
 
 test-docker-environment-start:
-	$(DOCKER_COMPOSE_TEST) up -d
+	$(DOCKER_COMPOSE_TEST) up --force-recreate
 
+test-docker-environment-restart:
+	$(DOCKER_COMPOSE_TEST) restart cypress
 
 test-open: ## Start local tests
 	cd tests && yarn run cypress open
@@ -41,8 +43,8 @@ run-test: ## Start automated tests
 	$(DOCKER_COMPOSE_TEST) run --rm --no-deps --name=client_cypress_run cypress bash -ci 'yarn wait-and-test'
 
 dump:
-	mongodump --gzip --archive=tests/data/dump.zip --uri mongodb://mongo:27027/conduit
+	mongodump --gzip --archive=tests/data/dump.zip --uri mongodb://localhost:27027/conduit
 
 restore:
-	mongo --quiet --eval 'db.getMongo().getDBNames().forEach(function(i){db.getSiblingDB(i).dropDatabase()})' mongodb://mongo:27027/conduit
-	mongorestore --gzip --archive=tests/data/dump.zip --uri mongodb://mongo:27027/conduit
+	mongo --quiet --eval 'db.getMongo().getDBNames().forEach(function(i){db.getSiblingDB(i).dropDatabase()})' mongodb://localhost:27027/conduit
+	mongorestore --gzip --archive=tests/data/dump.zip --uri mongodb://localhost:27027/conduit
