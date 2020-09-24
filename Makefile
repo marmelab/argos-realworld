@@ -28,7 +28,7 @@ test-docker-build:
 	#$(DOCKER_COMPOSE_TEST) run client yarn build
 
 test-docker-environment-start:
-	$(DOCKER_COMPOSE_TEST) up --force-recreate
+	$(DOCKER_COMPOSE_TEST) up -d --force-recreate
 
 test-docker-environment-restart:
 	$(DOCKER_COMPOSE_TEST) restart cypress
