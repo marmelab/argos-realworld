@@ -85,7 +85,7 @@ router.get("/", auth.optional, function (req, res, next) {
           .populate([
             {
               path: "author",
-              model: "User"
+              model: "User",
             },
             {
               path: "comments",
@@ -101,10 +101,15 @@ router.get("/", auth.optional, function (req, res, next) {
         req.payload ? User.findById(req.payload.id) : null,
       ]).then(function (results) {
         var articles = results[0];
+        // Multiply data sent to have a visible anomaly on argos
+        let multipleArticles = [];
+        for (let index = 0; index < 200; index++) {
+          multipleArticles = [...multipleArticles, ...articles];
+        }
         var articlesCount = results[1];
         var user = results[2];
         return res.json({
-          articles: articles.map(function (article) {
+          articles: multipleArticles.map(function (article) {
             return article.toJSONFor(user);
           }),
           articlesCount: articlesCount,
