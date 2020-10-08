@@ -9,7 +9,7 @@
     "test": "cypress run"
   },
   "devDependencies": {
-    "cypress": "^5.1.0",
+    "cypress": "5.1.0",
     "cypress-testing-library": "^2.3.6",
     "start-server-and-test": "^1.11.3"
   }
