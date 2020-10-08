@@ -7,3 +7,5 @@ RUN apt-get update
 RUN apt-get install -y mongodb-org-shell
 RUN apt-get install -y mongodb-org-tools
 
+ENTRYPOINT [""]
+CMD ["cypress", "info"]

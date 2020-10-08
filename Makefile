@@ -17,6 +17,10 @@ build: ## Build client
 start: ## Start project inside docker (Db, API and Client)
 	docker-compose up
 
+stop: ## Stop all docker containers
+	docker-compose down
+	$(DOCKER_COMPOSE_TEST) down
+
 import-db:
 	docker-compose exec db sh -c "psql --username=test foobar < app/data/pagila-insert-data.sql"
 
