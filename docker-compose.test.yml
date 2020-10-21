@@ -5,6 +5,7 @@ services:
     build:
       context: ./tests
       dockerfile: Dockerfile
+    command: tail -f /dev/null
     depends_on:
       - client
       - api

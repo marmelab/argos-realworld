@@ -44,7 +44,7 @@ test-open: ## Start local tests
 setup-test: install build install-test-deps test-docker-environment-start  ## Setup tests
 
 run-test: ## Start automated tests
-	$(DOCKER_COMPOSE_TEST) run --rm --no-deps --name=client_cypress_run cypress bash -ci 'yarn wait-and-test'
+	$(DOCKER_COMPOSE_TEST) exec -T cypress yarn wait-and-test
 
 dump:
 	mongodump --gzip --archive=tests/data/dump.zip --uri mongodb://localhost:27027/conduit
