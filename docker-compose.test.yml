@@ -5,7 +5,6 @@ services:
     build:
       context: ./tests
       dockerfile: Dockerfile
-    command: tail -f /dev/null # avoid container from stopping in order to run "docker-compose exec cypress"
     depends_on:
       - client
       - api
