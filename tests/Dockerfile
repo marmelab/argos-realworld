@@ -7,5 +7,9 @@ RUN apt-get update
 RUN apt-get install -y mongodb-org-shell
 RUN apt-get install -y mongodb-org-tools
 
+# by default cypress is run once container is started (because of inherited image)
+# we don't want this behaviour but instead want to launch it using `make test-run`
+# using the `tail` command makes this container do nothing but wait so we can still
+# run `docker exec` commands within it (and so run `make test-run`)
 ENTRYPOINT [""]
-CMD ["cypress", "info"]
+CMD ["tail", "-f", "/dev/null"]
