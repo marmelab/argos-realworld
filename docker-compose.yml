@@ -36,3 +36,5 @@ services:
     command: mongod --port 27027 --storageEngine=wiredTiger
     ports:
       - 27027:27027
+    volumes:
+      - ./tests/data:/data
