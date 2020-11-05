@@ -50,5 +50,5 @@ dump:
 	mongodump --gzip --archive=tests/data/dump.zip --uri mongodb://localhost:27027/conduit
 
 restore:
-	mongo --quiet --eval 'db.getMongo().getDBNames().forEach(function(i){db.getSiblingDB(i).dropDatabase()})' mongodb://localhost:27027/conduit
-	mongorestore --gzip --archive=tests/data/dump.zip --uri mongodb://localhost:27027/conduit
+	./bin/mongo.sh --eval 'db.getMongo().getDBNames().forEach(function(i){db.getSiblingDB(i).dropDatabase()})'
+	./bin/mongorestore.sh --gzip --archive=/data/dump.zip
