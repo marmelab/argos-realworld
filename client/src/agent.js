@@ -75,7 +75,7 @@ const Tags = {
   getAll: () => requests.get("/tags"),
 };
 
-const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
+const limit = (count, p) => `limit=${count*100}&offset=${p ? p * count : 0}`;
 const omitSlug = (article) => Object.assign({}, article, { slug: undefined });
 const Articles = {
   all: (page) => requests.get(`/articles?${limit(10, page)}`),
