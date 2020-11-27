@@ -1,29 +1,30 @@
-import loginPageFactory from "../support/LoginPage";
-import listPageFactory from "../support/ListPage";
-import articlePageFactory from "../support/ArticlePage";
+import loginPageFactory from '../support/LoginPage';
+import listPageFactory from '../support/ListPage';
+import articlePageFactory from '../support/ArticlePage';
 
-describe("Article Comment", () => {
-  const LoginPage = loginPageFactory("/login");
-  const ListPage = listPageFactory("/");
-  const ArticlePage = articlePageFactory();
+describe('Article Comment', () => {
+    const LoginPage = loginPageFactory('/login');
+    const ListPage = listPageFactory('/');
+    const ArticlePage = articlePageFactory();
 
-  beforeEach(() => {
-    LoginPage.navigate();
-    LoginPage.login();
-    LoginPage.isLoggedIn();
-  });
+    beforeEach(() => {
+        cy.resetFixtures();
+        LoginPage.navigate();
+        LoginPage.login();
+        LoginPage.isLoggedIn();
+    });
 
-  it("should comment an article", () => {
-    ListPage.navigate();
-    ListPage.goToGlobalFeed();
-    ListPage.openArticle(1);
+    it('should comment an article', () => {
+        ListPage.navigate();
+        ListPage.goToGlobalFeed();
+        ListPage.openArticle(1);
 
-    const commentText = "I didn't undertand anything";
-    ArticlePage.comment(commentText);
-    ArticlePage.waitUntilTextVisible(commentText);
-  });
+        const commentText = "I didn't undertand anything";
+        ArticlePage.comment(commentText);
+        ArticlePage.waitUntilTextVisible(commentText);
+    });
 
-  afterEach(() => {
-    LoginPage.logout();
-  });
+    afterEach(() => {
+        LoginPage.logout();
+    });
 });

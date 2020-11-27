@@ -1,6 +1,6 @@
 {
-  "baseUrl": "http://client:4100/",
-  "viewportWidth": 1280,
-  "viewportHeight": 900,
-  "video": false
+    "baseUrl": "http://client:4100/",
+    "viewportWidth": 1280,
+    "viewportHeight": 900,
+    "video": false
 }

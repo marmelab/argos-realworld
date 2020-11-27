@@ -14,17 +14,59 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import "./commands";
+import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
-Cypress.on("uncaught:exception", (err, runnable) => {
-  // returning false here prevents Cypress from
-  // failing the test
-  return false;
+Cypress.on('uncaught:exception', (err, runnable) => {
+    // returning false here prevents Cypress from
+    // failing the test
+    return false;
 });
 
-beforeEach(() => {
-  cy.log("Resetting fixtures before each test");
-  cy.resetFixtures();
-});
+let testAttributes = null;
+let started = null;
+let title = null;
+
+// sends test results to the plugins process
+// using cy.task https://on.cypress.io/task
+export const sendTestTimingsBefore = () => {
+  if (!testAttributes) {
+    return
+  }
+
+  const attr = testAttributes
+  testAttributes = null
+  cy.task('testTimings', attr)
+}
+
+beforeEach(sendTestTimingsBefore)
+
+after(() => {
+    const ended = new Date();
+    testAttributes = {
+        title,
+        started,
+        ended,
+        elapsed: ended - started
+    }
+    cy.task('testTimings', testAttributes)
+})
+
+Cypress.on('test:before:run', (attributes) => {
+    // Fires before the test and all before and beforeEach hooks run.
+    started = new Date();
+    title = attributes.title;
+
+})
+
+Cypress.on('test:after:run', (attributes) => {
+    // Fires after the test and all afterEach and after hooks run.
+    const ended = new Date();
+    testAttributes = {
+        title: attributes.title,
+        started,
+        ended,
+        elapsed: ended - started
+  }
+})

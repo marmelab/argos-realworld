@@ -1,35 +1,37 @@
-import loginPageFactory from "../support/LoginPage";
-import listPageFactory from "../support/ListPage";
-import editPageFactory from "../support/EditPage";
+import loginPageFactory from '../support/LoginPage';
+import listPageFactory from '../support/ListPage';
+import editPageFactory from '../support/EditPage';
 
-describe("Article Create", () => {
-  const LoginPage = loginPageFactory("/login");
-  const ListPage = listPageFactory("/");
-  const EditPage = editPageFactory("/editor");
 
-  const articleValues = {
-    title: "Test Article",
-    description: "An article",
-    body: "The body of the article",
-    tagList: "boring new fresh",
-  };
+describe('Article Create', () => {
+    const LoginPage = loginPageFactory('/login');
+    const ListPage = listPageFactory('/');
+    const EditPage = editPageFactory('/editor');
 
-  beforeEach(() => {
-    LoginPage.navigate();
-    LoginPage.login();
-    LoginPage.isLoggedIn();
-  });
+    const articleValues = {
+        title: 'Test Article',
+        description: 'An article',
+        body: 'The body of the article',
+        tagList: 'boring new fresh',
+    };
 
-  it("should create a new article", () => {
-    EditPage.navigate();
-    EditPage.fillForm(articleValues);
-    EditPage.publish();
-    ListPage.navigate();
-    ListPage.goToGlobalFeed();
-    ListPage.waitUntilRowIsVisible(articleValues.title);
-  });
+    beforeEach(() => {
+        cy.resetFixtures();
+        LoginPage.navigate();
+        LoginPage.login();
+        LoginPage.isLoggedIn();
+    });
 
-  afterEach(() => {
-    LoginPage.logout();
-  });
+    it('should create a new article', () => {
+        EditPage.navigate();
+        EditPage.fillForm(articleValues);
+        EditPage.publish();
+        ListPage.navigate();
+        ListPage.goToGlobalFeed();
+        ListPage.waitUntilRowIsVisible(articleValues.title);
+    });
+
+    afterEach(() => {
+        LoginPage.logout();
+    });
 });
