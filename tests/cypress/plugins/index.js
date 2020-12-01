@@ -26,7 +26,6 @@ module.exports = (on, config) => {
   on('task', {
     testTimings (attributes) {
         console.log('Test "%s" has finished in %dms', attributes.title, attributes.duration)
-        console.log(attributes)
         stream.write(JSON.stringify(attributes));
         stream.write("\n");
         return null
