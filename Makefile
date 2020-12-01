@@ -44,6 +44,7 @@ test-open: ## Start local tests
 setup-test: install build install-test-deps test-docker-environment-start  ## Setup tests
 
 run-test: ## Start automated tests
+	rm -rf tests/data/timeline.txt
 	$(DOCKER_COMPOSE_TEST) exec -T cypress yarn wait-and-test
 
 dump:

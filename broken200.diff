@@ -13,7 +13,7 @@ index e0f1074..f5f54fe 100644
        var articles = results[0];
 +      // Multiply data sent to have a visible anomaly on argos
 +      let multipleArticles = [];
-+      for (let index = 0; index < 10; index++) {
++      for (let index = 0; index < 200; index++) {
 +        multipleArticles = [...multipleArticles, ...articles];
 +      }
        var articlesCount = results[1];
@@ -29,7 +29,7 @@ index e0f1074..f5f54fe 100644
    User.findById(req.payload.id).then(function(user){
      if (!user) { return res.sendStatus(401); }
 
-+      for (let i = 0; i < 10; i++) {
++      for (let i = 0; i < 100; i++) {
 +        writeFileSync(`/tmp/conduit_article_${i}.json`, JSON.stringify(req.body.article));
 +      }
 +
@@ -40,7 +40,7 @@ index e0f1074..f5f54fe 100644
    User.findById(req.payload.id).then(function(user){
      if(!user){ return res.sendStatus(401); }
 
-+    for (let i = 0; i < 10; i++) {
++    for (let i = 0; i < 100; i++) {
 +      writeFileSync(`/tmp/conduit_comment_${i}.json`, JSON.stringify(req.body.comment));
 +    }
 +
