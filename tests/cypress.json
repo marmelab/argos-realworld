@@ -2,5 +2,11 @@
     "baseUrl": "http://client:4100/",
     "viewportWidth": 1280,
     "viewportHeight": 900,
-    "video": false
+    "video": false,
+    "defaultCommandTimeout": 20000,
+    "execTimeout": 300000,
+    "taskTimeout": 300000,
+    "pageLoadTimeout": 300000,
+    "requestTimeout": 25000,
+    "responseTimeout": 150000
 }

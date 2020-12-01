@@ -10,7 +10,7 @@
 // ***********************************************************
 
 const fs = require('fs')
-const stream = fs.createWriteStream("tmp/timeline.txt", {flags:'a'});
+const stream = fs.createWriteStream("data/timeline.txt", {flags:'a'});
 
 
 // This function is called when a project is opened or re-opened (e.g. due to

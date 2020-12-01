@@ -47,20 +47,3 @@ index e0f1074..f5f54fe 100644
      var comment = new Comment(req.body.comment);
      comment.article = req.article;
      comment.author = user;
-diff --git a/tests/cypress.json b/tests/cypress.json
-index 2d11bf7..472ee90 100644
---- a/tests/cypress.json
-+++ b/tests/cypress.json
-@@ -2,5 +2,11 @@
-   "baseUrl": "http://client:4100/",
-   "viewportWidth": 1280,
-   "viewportHeight": 900,
--  "video": false
-+  "video": false,
-+  "defaultCommandTimeout": 20000,
-+  "execTimeout": 300000,
-+  "taskTimeout": 300000,
-+  "pageLoadTimeout": 300000,
-+  "requestTimeout": 25000,
-+  "responseTimeout": 150000
- }
