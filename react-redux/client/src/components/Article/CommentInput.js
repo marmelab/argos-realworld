@@ -46,6 +46,7 @@ class CommentInput extends React.Component {
             alt={this.props.currentUser.username} />
           <button
             className="btn btn-sm btn-primary"
+            data-test-id="post-comment-button"
             type="submit">
             Post Comment
           </button>

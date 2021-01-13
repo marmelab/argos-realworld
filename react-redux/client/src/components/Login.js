@@ -79,6 +79,7 @@ class Login extends React.Component {
                   <button
                     className="btn btn-lg btn-primary pull-xs-right"
                     type="submit"
+                    data-test-id="signin-button"
                     disabled={this.props.inProgress}>
                     Sign in
                   </button>

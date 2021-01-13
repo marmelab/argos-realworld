@@ -49,6 +49,7 @@ const promiseMiddleware = (store) => (next) => (action) => {
 const localStorageMiddleware = (store) => (next) => (action) => {
   if (action.type === REGISTER || action.type === LOGIN) {
     if (!action.error) {
+      console.log({action});
       window.localStorage.setItem("jwt", action.payload.user.token);
       agent.setToken(action.payload.user.token);
     }

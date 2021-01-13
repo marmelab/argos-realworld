@@ -17,7 +17,7 @@ describe('Article Comment', () => {
     it('should comment an article', () => {
         ListPage.navigate();
         ListPage.goToGlobalFeed();
-        ListPage.openArticle(1);
+        ListPage.openArticleTitle("Au secours, mon poste ne démarre plus !")
 
         const commentText = "I didn't undertand anything";
         ArticlePage.comment(commentText);

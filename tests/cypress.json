@@ -1,5 +1,5 @@
 {
-    "baseUrl": "http://client:4100/",
+    "baseUrl": "http://client:8080/",
     "viewportWidth": 1280,
     "viewportHeight": 900,
     "video": false,

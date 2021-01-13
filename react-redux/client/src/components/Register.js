@@ -95,6 +95,7 @@ class Register extends React.Component {
                   <button
                     className="btn btn-lg btn-primary pull-xs-right"
                     type="submit"
+                    data-test-id="register-button"
                     disabled={this.props.inProgress}>
                     Sign up
                   </button>
