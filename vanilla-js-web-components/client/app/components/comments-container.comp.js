@@ -15,7 +15,7 @@ export class CommentsContainerComponent extends HTMLElement {
 
     connectedCallback() {
         this.slug = this.getAttribute('slug');
-        fetch(config.rest_url + 'articles/' + this.slug + '/comments')
+        fetch(config.rest_url + '/articles/' + this.slug + '/comments')
             .then(response => response.json())
             .then(r => {
                 this.comments = r.comments;

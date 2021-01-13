@@ -27,7 +27,7 @@ export class PopularTagsComponent extends HTMLElement {
     popularTags() {
         let tagList = this.querySelector('#tagList');
 
-        fetch(config.rest_url + 'tags').then(function (response) {
+        fetch(config.rest_url + '/tags').then(function (response) {
             return response.json();
         }).then(r => {
                 while (tagList.firstChild) {

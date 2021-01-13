@@ -22,6 +22,8 @@ const stream = fs.createWriteStream("data/timeline.txt", {flags:'a'});
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+  config.env.MONGO_URL =
+        process.env.MONGO_URL || 'mongodb://localhost:27027/conduit';
 
   on('task', {
     testTimings (attributes) {
@@ -31,4 +33,6 @@ module.exports = (on, config) => {
         return null
     },
   })
+
+  return config;
 }

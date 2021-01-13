@@ -6,7 +6,8 @@
     "author": "<admir_sabanovic@live.com>",
     "license": "MIT",
     "scripts": {
-        "start": "webpack-dev-server --host 0.0.0.0",
+        "start": "PORT=8080 webpack-dev-server --host 0.0.0.0",
+        "start-docker": "PORT=8080 webpack-dev-server --host client",
         "build": "rm -rf dist && webpack --config webpack.config.prod.js",
         "prod": "cp serve.js dist/serve.js && node serve.js"
     },

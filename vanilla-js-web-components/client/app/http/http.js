@@ -29,7 +29,7 @@ export class Http {
                 headers['Authorization'] = 'Token ' + auth.token;
             }
         }
-        return fetch(config.rest_url + path, {
+        return fetch(config.rest_url + '/' + path, {
             headers: headers
         });
     }
@@ -54,7 +54,7 @@ export class Http {
             }
             headers['Authorization'] = 'Token ' + token;
         }
-        return fetch(config.rest_url + path, {
+        return fetch(config.rest_url + '/' + path, {
             headers: headers,
             method: 'POST',
             body: body
@@ -86,7 +86,7 @@ export class Http {
             }
             headers['Authorization'] = 'Token ' + token;
         }
-        return fetch(config.rest_url + path, {
+        return fetch(config.rest_url + '/' + path, {
             headers: headers,
             method: 'PUT',
             body: body
@@ -113,7 +113,7 @@ export class Http {
             headers['Authorization'] = 'Token ' + token;
         }
 
-        return fetch(config.rest_url + path, {
+        return fetch(config.rest_url + '/' + path, {
             headers: headers,
             method: 'DELETE'
         }).then(function (response) {

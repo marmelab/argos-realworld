@@ -1,8 +1,8 @@
 default: help
 
 API_DIR = node-express
-# CLIENT_DIR = react-redux
-CLIENT_DIR = vanilla-js-web-components
+CLIENT_DIR = react-redux
+# CLIENT_DIR = vanilla-js-web-components
 TESTS_DIR = .
 
 # DOCKER_COMPOSE_TEST = docker-compose -p conduit -f docker-compose.yml -f docker-compose.test.yml
@@ -30,9 +30,6 @@ stop: ## Stop all docker containers
 import-db:
 	docker-compose exec db sh -c "psql --username=test foobar < app/data/pagila-insert-data.sql"
 
-install-test-deps:
-	cd ${TESTS_DIR}/tests && yarn
-
 test-docker-environment-start:
 	$(DOCKER_COMPOSE_TEST) up -d --force-recreate
 
@@ -40,10 +37,9 @@ test-docker-environment-restart:
 	$(DOCKER_COMPOSE_TEST) restart cypress
 
 test-open: ## Start local tests
-	cd ${TESTS_DIR}/tests && yarn run cypress open
+	cd ${TESTS_DIR}/tests && CYPRESS_BASE_URL="http://localhost:8080/" MONGO_URL="mongodb://localhost:27027/conduit" yarn run cypress open
 
-
-setup-test: install build install-test-deps test-docker-environment-start  ## Setup tests
+setup-test: install build test-docker-environment-start  ## Setup tests
 
 run-test: ## Start automated tests
 	rm -rf ${TESTS_DIR}/tests/data/timeline.txt
@@ -53,5 +49,6 @@ dump:
 	mongodump --gzip --archive=${TESTS_DIR}/tests/data/dump.zip --uri mongodb://localhost:27027/conduit
 
 restore:
+	# docker-compose exec -T mongo mongo localhost:27027/conduit $@
 	COMPOSE_PROJECT_NAME="conduit" ./bin/mongo.sh --eval 'db.getMongo().getDBNames().forEach(function(i){db.getSiblingDB(i).dropDatabase()})'
 	COMPOSE_PROJECT_NAME="conduit" ./bin/mongorestore.sh --gzip --archive=/data/dump.zip

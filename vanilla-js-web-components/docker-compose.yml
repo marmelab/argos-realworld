@@ -3,7 +3,7 @@ version: "3"
 services:
   client:
     image: node:12
-    command: "yarn start"
+    command: "yarn run start"
     working_dir: /app/vanilla-js-web-components/client
     stdin_open: true
     volumes:

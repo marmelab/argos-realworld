@@ -5,6 +5,7 @@ module.exports = {
   mode: 'development',
   entry: './app/index.js',
   plugins: [
+    new webpack.EnvironmentPlugin(['REACT_APP_API_ROOT']),
     new HtmlWebpackPlugin({
       template: './app/index.html'
     }),

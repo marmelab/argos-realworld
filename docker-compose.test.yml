@@ -14,9 +14,13 @@ services:
     links:
       - "client:client"
       - "api:api"
+    environment:
+      - CYPRESS_BASE_URL=http://client:8080/
+      - MONGO_URL=mongodb://mongo:27027/conduit
 
   client:
+    command: "yarn run start-docker"
     environment:
       - REACT_APP_API_ROOT=http://api:4000/api
-      - PORT=4100
+      - PORT=8080
       - NODE_ENV=production

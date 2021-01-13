@@ -32,7 +32,7 @@ export class Authentication {
             }
         };
         return new Promise((resolve, reject) => {
-            fetch(config.rest_url + 'users/login', {
+            fetch(config.rest_url + '/users/login', {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
