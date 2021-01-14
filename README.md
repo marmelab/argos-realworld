@@ -42,3 +42,18 @@ Then run automated tests
 
 - make setup-tests
 - make test-open
+
+## Notes for dev
+- in order to add a new front you should decorate html elements with `data-test-id`:
+  - `home-menu`
+  - `new-post-menu`
+  - `signin-menu`
+  - `settings-menu`
+  - `publish-button`
+  - `post-comment-button`
+  - `signin-button`
+  - `logout-button`
+  - `global-feed-link`
+- modify code such that API root takes value `process.env.REACT_APP_API_ROOT || "http://localhost:4000/api`
+  (`process.env.REACT_APP_API_ROOT` when tests are run in Docker)
+- front PORT should be 8080
