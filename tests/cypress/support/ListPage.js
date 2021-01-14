@@ -1,11 +1,10 @@
 export default (url) => ({
   elements: {
-    globalFeed: "div.feed-toggle li.nav-item:last-child a.nav-link",
-    article: (index) => `div.article-preview:nth-child(${index + 1}) > a`,
+    globalFeed: "[data-test-id='global-feed-link']",
   },
 
   navigate() {
-    cy.visit(url);
+    cy.visit("");
     this.waitUntilDataLoaded();
   },
 
@@ -21,7 +20,7 @@ export default (url) => ({
     return cy.contains(rowTitle);
   },
 
-  openArticle(index) {
-    return cy.get(this.elements.article(index)).click();
+  openArticleTitle(title) {
+    return cy.contains(title).click();
   },
 });

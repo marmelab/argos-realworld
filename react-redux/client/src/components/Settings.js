@@ -114,6 +114,7 @@ class SettingsForm extends React.Component {
           <button
             className="btn btn-lg btn-primary pull-xs-right"
             type="submit"
+            data-test-id="update-settings-button"
             disabled={this.state.inProgress}>
             Update Settings
           </button>
@@ -155,6 +156,7 @@ class Settings extends React.Component {
               <hr />
 
               <button
+                data-test-id="logout-button"
                 className="btn btn-outline-danger"
                 onClick={this.props.onClickLogout}>
                 Or click here to logout.

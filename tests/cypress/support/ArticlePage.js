@@ -1,7 +1,7 @@
 export default (url) => ({
   elements: {
     comment: "textarea",
-    postButton: `form button.btn-primary[type='submit']`,
+    postButton: "[data-test-id='post-comment-button']",
   },
 
   navigate() {

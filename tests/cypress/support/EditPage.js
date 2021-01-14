@@ -6,11 +6,16 @@ export default (url) => ({
       body: "textarea",
       tagList: `input[type='text'][placeholder="Enter tags"]`,
     },
-    publishButton: `form button.btn-primary[type='button']`,
+    homeMenu: "[data-test-id='home-menu']",
+    newPostMenu: "[data-test-id='new-post-menu']",
+    publishButton: "[data-test-id='publish-button']",
   },
 
   navigate() {
-    cy.visit(url);
+    // cy.visit(url);
+    // cy.visit('');
+    cy.get(this.elements.homeMenu).click();
+    cy.get(this.elements.newPostMenu).click();
     this.waitUntilVisible();
   },
 

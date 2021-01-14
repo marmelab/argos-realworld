@@ -7,13 +7,10 @@ describe('Login', () => {
         cy.resetFixtures();
     });
 
-    it('should login', () => {
+    it('should login/logout', () => {
         LoginPage.navigate();
         LoginPage.login();
-        LoginPage.isLoggedIn();
-    });
-
-    it('should logout', () => {
+        LoginPage.isLoggedIn()
         LoginPage.logout();
         LoginPage.isLoggedOut();
     });

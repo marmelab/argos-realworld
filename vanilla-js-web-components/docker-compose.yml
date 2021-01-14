@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  client:
+    image: node:12
+    command: "yarn run start"
+    working_dir: /app/vanilla-js-web-components/client
+    stdin_open: true
+    volumes:
+      - ".:/app"
+    ports:
+      - "8080:8080"

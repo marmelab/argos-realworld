@@ -27,9 +27,11 @@ import "cypress-testing-library/add-commands";
 
 /** Empty database and import default fixtures */
 Cypress.Commands.add("resetFixtures", () => {
+    const MONGO_URL = Cypress.env('MONGO_URL');
+
   return cy
     .exec(
-      `mongo --quiet --eval 'db.getMongo().getDBNames().forEach(function(i){db.getSiblingDB(i).dropDatabase()})' mongodb://mongo:27027/conduit && mongorestore --gzip --archive=data/dump.zip --uri mongodb://mongo:27027/conduit`
+      `mongo --quiet --eval 'db.getMongo().getDBNames().forEach(function(i){db.getSiblingDB(i).dropDatabase()})' ${MONGO_URL} && mongorestore --gzip --archive=data/dump.zip --uri ${MONGO_URL}`
     )
     .then(({ code, stderr }) => {
       if (code && stderr) {
