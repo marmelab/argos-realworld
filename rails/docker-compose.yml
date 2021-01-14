@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  api:
+    build: rails/.
+    entrypoint: ["/app/rails/api/migrate.sh"]
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 4000 -b '0.0.0.0'"
+    working_dir: /app/rails/api
+    volumes:
+      - ".:/app"
+    ports:
+      - "4000:4000"

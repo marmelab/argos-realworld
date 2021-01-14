@@ -2,9 +2,16 @@ default: help
 
 ### select API_DIR and CLIENT_DIR here
 ############################################################
+<<<<<<< HEAD
 API_DIR ?= node-express
 # CLIENT_DIR ?= react-redux
 CLIENT_DIR ?= vanilla-js-web-components
+=======
+# API_DIR = node-express
+API_DIR = rails
+CLIENT_DIR = react-redux
+# CLIENT_DIR = vanilla-js-web-components
+>>>>>>> d4920cd... first import of rails
 ############################################################
 
 TESTS_DIR = .
