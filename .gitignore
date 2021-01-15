@@ -45,3 +45,4 @@ build/
 cypress/screenshots/
 cypress/videos/
 tests/data/timeline.txt
+rails/api/db/development.sqlite3
