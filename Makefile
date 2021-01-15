@@ -2,9 +2,9 @@ default: help
 
 ### select API_DIR and CLIENT_DIR here
 ############################################################
-API_DIR = node-express
-# CLIENT_DIR = react-redux
-CLIENT_DIR = vanilla-js-web-components
+API_DIR ?= node-express
+CLIENT_DIR ?= react-redux
+# CLIENT_DIR ?= vanilla-js-web-components
 ############################################################
 
 TESTS_DIR = .
@@ -24,7 +24,7 @@ install: ## Install all dependencies
 build: ## Build client
 	cd ${CLIENT_DIR}/client && yarn build
 
-start: ## Start project inside docker (Db, API and Client)
+start: install build ## Start project inside docker (Db, API and Client)
 	$(DOCKER_COMPOSE) up
 
 stop: ## Stop all docker containers
