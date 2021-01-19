@@ -21,4 +21,9 @@ export default (url) => ({
   waitUntilTextVisible(text) {
     return cy.contains(text);
   },
+
+  selectTag(value) {
+    cy.get(`[data-test-id='tag-${value}']`).click();
+    return cy.get(`[data-test-id='tag-link-${value}']`);
+  },
 });

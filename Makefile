@@ -3,8 +3,8 @@ default: help
 ### select API_DIR and CLIENT_DIR here
 ############################################################
 API_DIR ?= node-express
-CLIENT_DIR ?= react-redux
-# CLIENT_DIR ?= vanilla-js-web-components
+# CLIENT_DIR ?= react-redux
+CLIENT_DIR ?= vanilla-js-web-components
 ############################################################
 
 TESTS_DIR = .

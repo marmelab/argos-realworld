@@ -49,7 +49,7 @@ const TagFilterTab = props => {
 
   return (
     <li className="nav-item">
-      <a href="" className="nav-link active">
+      <a href="" className="nav-link active" data-test-id={`tag-link-${props.tag}`}>
         <i className="ion-pound"></i> {props.tag}
       </a>
     </li>
