@@ -9,9 +9,14 @@ CLIENT_DIR ?= vanilla-js-web-components
 =======
 # API_DIR = node-express
 API_DIR = rails
+<<<<<<< HEAD
 CLIENT_DIR = react-redux
 # CLIENT_DIR = vanilla-js-web-components
 >>>>>>> d4920cd... first import of rails
+=======
+# CLIENT_DIR = react-redux
+CLIENT_DIR = vanilla-js-web-components
+>>>>>>> e85809d... fix password pb and prepare for importing db
 ############################################################
 
 TESTS_DIR = .
@@ -58,7 +63,19 @@ run-test: ## Start automated tests
 
 dump:
 	mongodump --gzip --archive=${TESTS_DIR}/tests/data/dump.zip --uri mongodb://localhost:27027/conduit
+	# mongoexport --uri mongodb://localhost:27027/conduit --out dump.json
 
 restore:
 	COMPOSE_PROJECT_NAME="conduit" $(DOCKER_MONGO) exec -T mongo mongo localhost:27027/conduit --eval 'db.getMongo().getDBNames().forEach(function(i){db.getSiblingDB(i).dropDatabase()})'
 	COMPOSE_PROJECT_NAME="conduit" $(DOCKER_MONGO) exec -T mongo mongorestore --uri mongodb://localhost:27027/conduit --gzip --archive=/data/dump.zip
+
+
+dump-rails:
+	sqlite3 rails/api/db/development.sqlite3 .dump > ${TESTS_DIR}/tests/data/dump-rails.sql
+
+import-rails:
+	sqlite3 rails/api/db/development.sqlite3 < ${TESTS_DIR}/tests/data/dump-rails.sql
+
+reinit-rails:
+	$(DOCKER_COMPOSE) exec api bundle exec rake db:reset
+	$(DOCKER_COMPOSE) exec api bundle exec rake db:migrate 2>/dev/null || bundle exec rake db:setup
