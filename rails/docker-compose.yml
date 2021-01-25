@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3"
 
 services:
   api:
@@ -8,5 +8,6 @@ services:
     working_dir: /app/rails/api
     volumes:
       - ".:/app"
+      - ./tests/data:/data
     ports:
       - "4000:4000"
