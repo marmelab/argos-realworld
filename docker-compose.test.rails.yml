@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  cypress:
+    build:
+      context: ./tests
+      dockerfile: Dockerfile
+    depends_on:
+      - client
+      - api
+    volumes:
+      - ./tests:/app
+    working_dir: /app
+    links:
+      - "client:client"
+      - "api:api"
+    environment:
+      - CYPRESS_BASE_URL=http://client:8080/
+
+  client:
+    command: "yarn run start-docker"
+    environment:
+      - REACT_APP_API_ROOT=http://api:4000/api
+      - PORT=8080
+      - NODE_ENV=production
