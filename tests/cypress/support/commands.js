@@ -25,31 +25,4 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import "cypress-testing-library/add-commands";
 
-/** Empty database and import default fixtures */
-// Cypress.Commands.add("resetFixtures", () => {
-//   const MONGO_URL = Cypress.env('MONGO_URL');
-//   console.log(MONGO_URL)
-//   if(MONGO_URL && MONGO_URL.length>0) {
-//     return cy
-//         .exec(
-//         `mongo --quiet --eval 'db.getMongo().getDBNames().forEach(function(i){db.getSiblingDB(i).dropDatabase()})' ${MONGO_URL} && mongorestore --gzip --archive=data/dump.zip --uri ${MONGO_URL}`
-//         )
-//         .then(({ code, stderr }) => {
-//         if (code && stderr) {
-//             cy.task("error", { command: "resetFixtures", code, stderr });
-//         }
-//         });
-//   } else {
-//     return cy
-//         .exec(
-//         `bundle exec rake db:reset`
-//         )
-//         .then(({ code, stderr }) => {
-//         if (code && stderr) {
-//             cy.task("error", { command: "resetFixtures", code, stderr });
-//         }
-//         });
-//   }
-// });
-
 Cypress.Screenshot.defaults({ timeout: 60000 });

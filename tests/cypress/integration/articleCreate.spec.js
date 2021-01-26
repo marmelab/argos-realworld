@@ -16,7 +16,6 @@ describe('Article Create', () => {
     };
 
     beforeEach(() => {
-        // cy.resetFixtures();
         LoginPage.navigate();
         LoginPage.login();
         LoginPage.isLoggedIn();

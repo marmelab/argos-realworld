@@ -8,7 +8,6 @@ describe('Article Comment', () => {
     const ArticlePage = articlePageFactory();
 
     beforeEach(() => {
-        // cy.resetFixtures();
         LoginPage.navigate();
         LoginPage.login();
         LoginPage.isLoggedIn();
