@@ -18,6 +18,7 @@ const Tags = props => {
                 href=""
                 className="tag-default tag-pill"
                 key={tag}
+                data-test-id={`tag-${tag}`}
                 onClick={handleClick}>
                 {tag}
               </a>

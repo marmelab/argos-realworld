@@ -54,9 +54,9 @@ export class PopularTagsComponent extends HTMLElement {
         tagEl.innerHTML = tag;
         tagEl.href = '#/';
         tagEl.setAttribute('style', 'cursor: pointer;');
+        tagEl.setAttribute("data-test-id",`tag-${tag}`);
         return tagEl;
     }
-
 
     render() {
         return `

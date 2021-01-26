@@ -202,6 +202,7 @@ export class HomeComponent extends HTMLElement {
         newNavLink.innerHTML = '# ' + tag;
         newNavItem.appendChild(newNavLink);
         newNavItem.id = 'tagFilter';
+        newNavItem.setAttribute("data-test-id",`tag-link-${props.tag}`);
         return newNavItem;
     }
 
