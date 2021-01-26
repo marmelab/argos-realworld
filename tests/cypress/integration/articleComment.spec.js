@@ -8,7 +8,7 @@ describe('Article Comment', () => {
     const ArticlePage = articlePageFactory();
 
     beforeEach(() => {
-        cy.resetFixtures();
+        // cy.resetFixtures();
         LoginPage.navigate();
         LoginPage.login();
         LoginPage.isLoggedIn();
@@ -17,9 +17,9 @@ describe('Article Comment', () => {
     it('should comment an article', () => {
         ListPage.navigate();
         ListPage.goToGlobalFeed();
-        ListPage.openArticleTitle("Helping Amnesty")
+        ListPage.openArticleTitle("Au secours, mon poste ne démarre plus !")
 
-        const commentText = "I didn't undertand anything";
+        const commentText = "I didn't understand anything";
         ArticlePage.comment(commentText);
         ArticlePage.waitUntilTextVisible(commentText);
     });

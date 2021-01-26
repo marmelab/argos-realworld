@@ -4,7 +4,7 @@ describe('Login', () => {
     const LoginPage = loginPageFactory('/login');
 
     beforeEach(() => {
-        cy.resetFixtures();
+        // cy.resetFixtures();
     });
 
     it('should login/logout', () => {

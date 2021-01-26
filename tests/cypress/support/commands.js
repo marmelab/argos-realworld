@@ -26,7 +26,7 @@
 import "cypress-testing-library/add-commands";
 
 /** Empty database and import default fixtures */
-Cypress.Commands.add("resetFixtures", () => {
+// Cypress.Commands.add("resetFixtures", () => {
 //   const MONGO_URL = Cypress.env('MONGO_URL');
 //   console.log(MONGO_URL)
 //   if(MONGO_URL && MONGO_URL.length>0) {
@@ -50,6 +50,6 @@ Cypress.Commands.add("resetFixtures", () => {
 //         }
 //         });
 //   }
-});
+// });
 
 Cypress.Screenshot.defaults({ timeout: 60000 });
