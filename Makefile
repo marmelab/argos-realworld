@@ -23,18 +23,15 @@ help:
 
 install: ## Install all dependencies
 	cd ${API_DIR}/api && yarn
-	cd ${CLIENT_DIR}/client && yarn
+	cd ${CLIENT_DIR}/client && yarn && yarn build
 	cd ${TESTS_DIR}/tests && yarn
 
-build: ## Build client
-	cd ${CLIENT_DIR}/client && yarn build
-
-start: install build ## Start project inside docker (Db, API and Client)
+start: install ## Start project inside docker (Db, API and Client)
 	$(DOCKER_COMPOSE) up
 
 stop: ## Stop all docker containers
-	$(DOCKER_COMPOSE) down
 	$(DOCKER_COMPOSE_TEST) down
+	$(DOCKER_COMPOSE) down
 
 import-db:
 	$(DOCKER_MONGO) exec db sh -c "psql --username=test foobar < app/data/pagila-insert-data.sql"
@@ -52,7 +49,7 @@ else
 	cd ${TESTS_DIR}/tests && CYPRESS_BASE_URL="http://localhost:8080/" yarn run cypress open
 endif
 
-setup-test: install build test-docker-environment-start  ## Setup tests
+setup-test: install test-docker-environment-start  ## Setup tests
 
 run-test: ## Start automated tests
 	rm -rf ${TESTS_DIR}/tests/data/timeline.txt

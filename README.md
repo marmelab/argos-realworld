@@ -20,13 +20,13 @@ App 2 is : Vanilla-JS-Web-Components and Node/Express
 ## To run project
 
 - make start
-- App1: open `http://localhost:4100`
-- App2: open `http://localhost:8080`
+- open `http://localhost:8080`
 
-## To create a production build:
+## To run e2e tests (with Cypress running on the host machine, and opening a browser)
 
-- make build
-
+- make start
+- make restore
+- make test-open
 
 ## To run e2e tests (with a dockerized version of Cypress)
 
@@ -37,11 +37,6 @@ Setup dockerized environment
 Then run automated tests
 
 - make run-test
-
-## To run e2e tests (whith Cypress running on the host machine, and opening a browser)
-
-- make setup-tests
-- make test-open
 
 ## Notes for dev
 - in order to add a new front you should decorate html elements with `data-test-id`:
