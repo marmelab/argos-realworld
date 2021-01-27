@@ -1,26 +1,45 @@
 # argos-realworld
-App on docker to test and demo argos (based on realworld repos)
 
-https://github.com/gothinkster/realworld
+This repository stores several versions of the database, API and client of [the realworld app](https://github.com/gothinkster/realworld), for digital footprint measurements. 
 
-App 1 is : React/Redux and Node/Express
+## Included Versions
 
-- https://github.com/gothinkster/react-redux-realworld-example-app
-- https://github.com/gothinkster/node-express-realworld-example-app
+We've cloned and tweaked implementations of the realworld frontend and backend apps, so that they can work together and produce the exact same results (and pass the same tests).
 
-App 2 is : Vanilla-JS-Web-Components and Node/Express
+You can use either one of the server implementations with either one of the frontend implementation.
 
-- https://github.com/gothinkster/web-components-realworld-example-app
-- https://github.com/gothinkster/node-express-realworld-example-app
+### Backend
 
-## To Install:
+- `rails`: based on https://github.com/gothinkster/rails-realworld-example-app, contains a SQLite DB
+- `node-express`: based https://github.com/gothinkster/node-express-realworld-example-app, contains a MongoDB DB
 
-- make install
+### Frontend
 
-## To run project
+- `react-redux`: based on https://github.com/gothinkster/react-redux-realworld-example-app
+- `vanilla-js-web-components`: based on https://github.com/gothinkster/web-components-realworld-example-app
 
-- make start
+## Requirements
+
+Node, Docker
+
+## Installation
+
+Choose a frontend and a backend, pass them as `API_DIR` and `CLIENT_DIR` environment variables, and call `make install`. For instance:
+
+```sh
+API_DIR=node-express CLIENT_DIR=react-redux make install
+```
+
+## Starting The App
+
+Choose a frontend and a backend, pass them as `API_DIR` and `CLIENT_DIR` environment variables, and call `make start`. For instance:
+
+```sh
+API_DIR=node-express CLIENT_DIR=react-redux make start
+```
+
 - open `http://localhost:8080`
+- for authenticated pages, use florian@marmelab.com / 1234
 
 ## To run e2e tests (with Cypress running on the host machine, and opening a browser)
 
@@ -39,6 +58,7 @@ Then run automated tests
 - make run-test
 
 ## Notes for dev
+
 - in order to add a new front you should decorate html elements with `data-test-id`:
   - `home-menu`
   - `new-post-menu`
