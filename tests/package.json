@@ -5,7 +5,7 @@
     "license": "MIT",
     "scripts": {
         "wait-and-test": "server-test http-get://client:8080 test",
-        "start": "python -m SimpleHTTPServer 9000",
+        "start": "python3 -m http.server 9000",
         "test": "cypress run"
     },
     "devDependencies": {
