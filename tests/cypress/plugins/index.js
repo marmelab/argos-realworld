@@ -25,12 +25,6 @@ module.exports = (on, config) => {
 
     on('task', {
         addToTimeline(attributes) {
-            // eslint-disable-next-line no-console
-            console.log(
-                'Test "%s" has finished in %dms',
-                attributes.title,
-                attributes.duration,
-            );
             stream.write(JSON.stringify(attributes));
             stream.write('\n');
             return null;

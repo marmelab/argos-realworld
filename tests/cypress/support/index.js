@@ -22,50 +22,70 @@ Cypress.on('uncaught:exception', (err, runnable) => {
     return false;
 });
 
-let testAttributes = null;
-let started = null;
-let title = null;
+let savedTimestamp = null;
+let savedStarted = null;
+let savedTestTitle = null;
+
+const setStart = (title) => {
+    savedStarted = new Date();
+    savedTestTitle = title;
+};
 
 Cypress.on('test:before:run', (attributes) => {
     // Fires before the test and all before and beforeEach hooks run.
-    started = new Date();
-    title = attributes.title;
+    setStart(attributes.title);
 });
 
 const addPreviousTimestampToTimeline = () => {
-    if (!testAttributes) {
+    if (!savedTimestamp) {
         return;
     }
 
-    const attr = testAttributes;
-    testAttributes = null;
+    const timestamp = savedTimestamp;
+    savedTimestamp = null;
     // sends test results to the plugins process
     // using cy.task https://on.cypress.io/task
-    cy.task('addToTimeline', attr);
+    cy.task('addToTimeline', timestamp);
 };
 
 beforeEach(addPreviousTimestampToTimeline);
 
-const addFinalTimestampOfTest = () => {
+const getTimestamp = (title) => {
     const ended = new Date();
-    testAttributes = {
+    return {
         title,
-        started,
+        started: savedStarted,
         ended,
-        elapsed: ended - started,
+        elapsed: ended - savedStarted,
     };
-    cy.task('addToTimeline', testAttributes);
 };
-after(addFinalTimestampOfTest);
+
+const addTimestampToTimeline = (title) => {
+    const timestamp = getTimestamp(title);
+    cy.task('addToTimeline', timestamp);
+};
+
+after(() => addTimestampToTimeline(savedTestTitle));
 
 Cypress.on('test:after:run', (attributes) => {
     // Fires after the test and all afterEach and after hooks run.
     // prepare timestamp to be added to timeline by upcoming addPreviousTimestampToTimeline
-    const ended = new Date();
-    testAttributes = {
-        title: attributes.title,
-        started,
-        ended,
-        elapsed: ended - started,
-    };
+    // savedTimestamp = getTimestamp(attributes.title);
+    savedTimestamp = getTimestamp(savedTestTitle);
+});
+
+// keep previous timestamp but change its name
+Cypress.Commands.add('renameCurrentTimestamp', (title) => {
+    savedTestTitle = title;
+});
+
+// do not save previous timestamp and start a new one
+Cypress.Commands.add('overwriteTimestamp', (title) => {
+    setStart(title);
+});
+
+// save previous timestamp and start a new one
+Cypress.Commands.add('setTimestamp', (title) => {
+    addTimestampToTimeline(savedTestTitle);
+    setStart(title);
 });
