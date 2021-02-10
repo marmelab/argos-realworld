@@ -1,9 +1,9 @@
-export default formClass => ({
+export default (formClass) => ({
     elems: {
         inputs: `.ra-input`,
-        input: name => `.${formClass} input[name='${name}']`,
-        select: name => `label[for="${name}"]`,
-        textarea: name => `.${formClass} textarea[name='${name}']`,
+        input: (name) => `.${formClass} input[name='${name}']`,
+        select: (name) => `label[for="${name}"]`,
+        textarea: (name) => `.${formClass} textarea[name='${name}']`,
         selectOption: 'ul[role="listbox"]',
         selectOverlay: 'div#menu-',
     },
@@ -50,9 +50,7 @@ export default formClass => ({
         }
         cy.get(this.elems.input(name)).type(value);
         if (inputSelect) {
-            cy.get('div[role="listbox"]')
-                .contains(value)
-                .click({ force: true });
+            cy.get('div[role="listbox"]').contains(value).click({ force: true });
         }
     },
 
@@ -62,9 +60,7 @@ export default formClass => ({
 
     setTextAreaValue(name, value, clearPreviousValue = true) {
         if (clearPreviousValue) {
-            cy.get(this.elems.textarea(name))
-                .focus()
-                .clear();
+            cy.get(this.elems.textarea(name)).focus().clear();
         }
         cy.get(this.elems.textarea(name)).type(value);
     },
@@ -75,9 +71,7 @@ export default formClass => ({
             .find('[aria-haspopup="listbox"]')
             .click();
 
-        cy.get(this.elems.selectOption)
-            .contains(value)
-            .click();
+        cy.get(this.elems.selectOption).contains(value).click();
     },
 
     setSelect2Values(name, values) {
@@ -86,11 +80,8 @@ export default formClass => ({
             .find('[aria-haspopup="listbox"]')
             .click();
 
-        values.forEach(value =>
-            cy
-                .get(this.elems.selectOption)
-                .contains(value)
-                .click()
+        values.forEach((value) =>
+            cy.get(this.elems.selectOption).contains(value).click(),
         );
         cy.get(this.elems.selectOverlay)
             .find('[aria-hidden="true"]')
