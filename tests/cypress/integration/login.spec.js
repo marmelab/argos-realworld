@@ -6,9 +6,8 @@ describe('Login', () => {
     it('should login/logout', () => {
         LoginPage.navigate();
         LoginPage.login();
-        LoginPage.isLoggedIn()
+        LoginPage.isLoggedIn();
         LoginPage.logout();
         LoginPage.isLoggedOut();
     });
-
 });

@@ -2,7 +2,7 @@ import filler from './FormFiller';
 
 const formClass = 'create-page';
 
-export default url => ({
+export default (url) => ({
     elements: {
         body: 'body',
         submitButton: `.${formClass} button[type='submit']`,

@@ -16,57 +16,76 @@
 // Import commands.js using ES2015 syntax:
 import './commands';
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
 Cypress.on('uncaught:exception', (err, runnable) => {
     // returning false here prevents Cypress from
     // failing the test
     return false;
 });
 
-let testAttributes = null;
-let started = null;
-let title = null;
+let savedMilestone = null;
+let savedStarted = null;
+let savedTestTitle = null;
 
-// sends test results to the plugins process
-// using cy.task https://on.cypress.io/task
-export const sendTestTimingsBefore = () => {
-  if (!testAttributes) {
-    return
-  }
-
-  const attr = testAttributes
-  testAttributes = null
-  cy.task('testTimings', attr)
-}
-
-beforeEach(sendTestTimingsBefore)
-
-after(() => {
-    const ended = new Date();
-    testAttributes = {
-        title,
-        started,
-        ended,
-        elapsed: ended - started
-    }
-    cy.task('testTimings', testAttributes)
-})
+const setStart = (title) => {
+    savedStarted = new Date();
+    savedTestTitle = title;
+};
 
 Cypress.on('test:before:run', (attributes) => {
     // Fires before the test and all before and beforeEach hooks run.
-    started = new Date();
-    title = attributes.title;
+    setStart(attributes.title);
+});
 
-})
+const addPreviousMilestoneToTimeline = () => {
+    if (!savedMilestone) {
+        return;
+    }
+
+    const milestone = savedMilestone;
+    savedMilestone = null;
+    // sends test results to the plugins process
+    // using cy.task https://on.cypress.io/task
+    cy.task('addToTimeline', milestone);
+};
+
+beforeEach(addPreviousMilestoneToTimeline);
+
+const getMilestone = (title) => {
+    const ended = new Date();
+    return {
+        title,
+        started: savedStarted,
+        ended,
+        elapsed: ended - savedStarted,
+    };
+};
+
+const addMilestoneToTimeline = (title) => {
+    const milestone = getMilestone(title);
+    cy.task('addToTimeline', milestone);
+};
+
+after(() => addMilestoneToTimeline(savedTestTitle));
 
 Cypress.on('test:after:run', (attributes) => {
     // Fires after the test and all afterEach and after hooks run.
-    const ended = new Date();
-    testAttributes = {
-        title: attributes.title,
-        started,
-        ended,
-        elapsed: ended - started
-  }
-})
+    // prepare milestone to be added to timeline by upcoming addPreviousMilestoneToTimeline
+    // savedMilestone = getMilestone(attributes.title);
+    savedMilestone = getMilestone(savedTestTitle);
+});
+
+// keep previous milestone but change its name
+Cypress.Commands.add('renameCurrentMilestone', (title) => {
+    savedTestTitle = title;
+});
+
+// do not save previous milestone and start a new one
+Cypress.Commands.add('moveCurrentMilestone', (title) => {
+    setStart(title ? title : savedTestTitle);
+});
+
+// save previous milestone and start a new one
+Cypress.Commands.add('createNewMilestone', (title) => {
+    addMilestoneToTimeline(savedTestTitle);
+    setStart(title);
+});

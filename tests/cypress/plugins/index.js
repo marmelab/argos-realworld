@@ -9,9 +9,8 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 
-const fs = require('fs')
-const stream = fs.createWriteStream("data/timeline.txt", {flags:'a'});
-
+const fs = require('fs');
+const stream = fs.createWriteStream('data/timeline.txt', { flags: 'a' });
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
@@ -20,19 +19,17 @@ const stream = fs.createWriteStream("data/timeline.txt", {flags:'a'});
  * @type {Cypress.PluginConfig}
  */
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
-  config.env.MONGO_URL =
-        process.env.MONGO_URL; // || 'mongodb://localhost:27027/conduit';
+    // `on` is used to hook into various events Cypress emits
+    // `config` is the resolved Cypress config
+    config.env.MONGO_URL = process.env.MONGO_URL; // || 'mongodb://localhost:27027/conduit';
 
-  on('task', {
-    testTimings (attributes) {
-        console.log('Test "%s" has finished in %dms', attributes.title, attributes.duration)
-        stream.write(JSON.stringify(attributes));
-        stream.write("\n");
-        return null
-    },
-  })
+    on('task', {
+        addToTimeline(attributes) {
+            stream.write(JSON.stringify(attributes));
+            stream.write('\n');
+            return null;
+        },
+    });
 
-  return config;
-}
+    return config;
+};

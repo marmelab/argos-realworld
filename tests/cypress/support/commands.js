@@ -23,6 +23,6 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-import "cypress-testing-library/add-commands";
+import 'cypress-testing-library/add-commands';
 
 Cypress.Screenshot.defaults({ timeout: 60000 });

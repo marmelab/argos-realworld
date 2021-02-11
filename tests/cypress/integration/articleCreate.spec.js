@@ -2,7 +2,6 @@ import loginPageFactory from '../support/LoginPage';
 import listPageFactory from '../support/ListPage';
 import editPageFactory from '../support/EditPage';
 
-
 describe('Article Create', () => {
     const LoginPage = loginPageFactory('/login');
     const ListPage = listPageFactory('/');
