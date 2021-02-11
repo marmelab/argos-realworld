@@ -22,7 +22,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
     return false;
 });
 
-let savedTimestamp = null;
+let savedMilestone = null;
 let savedStarted = null;
 let savedTestTitle = null;
 
@@ -36,21 +36,21 @@ Cypress.on('test:before:run', (attributes) => {
     setStart(attributes.title);
 });
 
-const addPreviousTimestampToTimeline = () => {
-    if (!savedTimestamp) {
+const addPreviousMilestoneToTimeline = () => {
+    if (!savedMilestone) {
         return;
     }
 
-    const timestamp = savedTimestamp;
-    savedTimestamp = null;
+    const milestone = savedMilestone;
+    savedMilestone = null;
     // sends test results to the plugins process
     // using cy.task https://on.cypress.io/task
-    cy.task('addToTimeline', timestamp);
+    cy.task('addToTimeline', milestone);
 };
 
-beforeEach(addPreviousTimestampToTimeline);
+beforeEach(addPreviousMilestoneToTimeline);
 
-const getTimestamp = (title) => {
+const getMilestone = (title) => {
     const ended = new Date();
     return {
         title,
@@ -60,32 +60,32 @@ const getTimestamp = (title) => {
     };
 };
 
-const addTimestampToTimeline = (title) => {
-    const timestamp = getTimestamp(title);
-    cy.task('addToTimeline', timestamp);
+const addMilestoneToTimeline = (title) => {
+    const milestone = getMilestone(title);
+    cy.task('addToTimeline', milestone);
 };
 
-after(() => addTimestampToTimeline(savedTestTitle));
+after(() => addMilestoneToTimeline(savedTestTitle));
 
 Cypress.on('test:after:run', (attributes) => {
     // Fires after the test and all afterEach and after hooks run.
-    // prepare timestamp to be added to timeline by upcoming addPreviousTimestampToTimeline
-    // savedTimestamp = getTimestamp(attributes.title);
-    savedTimestamp = getTimestamp(savedTestTitle);
+    // prepare milestone to be added to timeline by upcoming addPreviousMilestoneToTimeline
+    // savedMilestone = getMilestone(attributes.title);
+    savedMilestone = getMilestone(savedTestTitle);
 });
 
-// keep previous timestamp but change its name
-Cypress.Commands.add('renameCurrentTimestamp', (title) => {
+// keep previous milestone but change its name
+Cypress.Commands.add('renameCurrentMilestone', (title) => {
     savedTestTitle = title;
 });
 
-// do not save previous timestamp and start a new one
-Cypress.Commands.add('overwriteTimestamp', (title) => {
-    setStart(title);
+// do not save previous milestone and start a new one
+Cypress.Commands.add('moveCurrentMilestone', (title) => {
+    setStart(title ? title : savedTestTitle);
 });
 
-// save previous timestamp and start a new one
-Cypress.Commands.add('setTimestamp', (title) => {
-    addTimestampToTimeline(savedTestTitle);
+// save previous milestone and start a new one
+Cypress.Commands.add('createNewMilestone', (title) => {
+    addMilestoneToTimeline(savedTestTitle);
     setStart(title);
 });
