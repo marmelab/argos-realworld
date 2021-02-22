@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -28,6 +29,11 @@ module.exports = {
     new webpack.EnvironmentPlugin(['REACT_APP_API_ROOT']),
     new HtmlWebpackPlugin({
       template: './app/index.html'
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: "images", to: "images" },
+      ],
     }),
     new webpack.IgnorePlugin(/vertx/)
   ]

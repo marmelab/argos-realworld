@@ -138,17 +138,19 @@ export class ArticlePreviewBannerComponent extends HTMLElement {
 
 
     render() {
+        // console.log({image:this.image});
         return `
                   <div class="banner">
                     <div class="container">
-                
+
                       <h1 id="article-title">
                         ${this.title}
                       </h1>
-                
+
                       <div class="article-meta">
                         <a href="#/profile/${this._username}">
-                            <img src="${this.image}" alt="no img" />
+                            <img src="${this.image||"https://static.productionready.io/images/smiley-cyrus.jpg"
+}" alt="no img" />
                         </a>
                         <div class="info">
                           <a id="profile-username" href="#/profile/${this._username}" class="author">${this._username}</a>
@@ -167,7 +169,7 @@ ${
                 <button id="follow-button" class="btn btn-sm btn-outline-secondary">
                  ${this.renderFollowButton()}
                 </button>
-               
+
                 <button id="favorite-button" class="btn btn-sm btn-outline-secondary">
                   <i class="ion-heart"></i>
                     ${this.renderFavoriteButton()}
@@ -175,7 +177,7 @@ ${
             }
 
                       </div>
-                
+
                     </div>
                   </div>
 `;
