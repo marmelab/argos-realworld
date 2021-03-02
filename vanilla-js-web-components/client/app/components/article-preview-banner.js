@@ -60,7 +60,6 @@ export class ArticlePreviewBannerComponent extends HTMLElement {
                 }
                 case 'favorited': {
                     this._favorited = newValue == 'true';
-                    console.log(newValue);
                     if (this.$favoriteButton) {
                         this.$favoriteButton.innerHTML = this.renderFavoriteButton();
                     }
@@ -138,7 +137,6 @@ export class ArticlePreviewBannerComponent extends HTMLElement {
 
 
     render() {
-        // console.log({image:this.image});
         return `
                   <div class="banner">
                     <div class="container">

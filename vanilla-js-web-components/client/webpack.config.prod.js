@@ -26,7 +26,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.EnvironmentPlugin(['REACT_APP_API_ROOT']),
     new HtmlWebpackPlugin({
       template: './app/index.html'
     }),

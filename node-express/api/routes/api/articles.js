@@ -131,7 +131,6 @@ router.post('/', auth.required, function(req, res, next) {
     article.author = user;
 
     return article.save().then(function(){
-      console.log(article.author);
       return res.json({article: article.toJSONFor(user)});
     });
   }).catch(next);

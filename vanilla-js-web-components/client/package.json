@@ -6,8 +6,7 @@
     "author": "<admir_sabanovic@live.com>",
     "license": "MIT",
     "scripts": {
-        "start": "PORT=8080 serve -s dist -l 8080",
-        "start-docker": "PORT=8080 serve -s dist -l 8080",
+        "start": "serve -s dist -l 8080",
         "build": "rm -rf dist && webpack --config webpack.config.prod.js",
         "prod": "cp serve.js dist/serve.js && node serve.js"
     },

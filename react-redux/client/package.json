@@ -24,8 +24,7 @@
         "superagent-promise": "^1.1.0"
     },
     "scripts": {
-        "start": "cross-env PORT=8080 serve -s build -l 8080",
-        "start-docker": "cross-env PORT=8080 serve -s build -l 8080",
+        "start": "serve -s build -l 8080",
         "build": "react-scripts build",
         "test": "cross-env PORT=8080 react-scripts test --env=jsdom",
         "eject": "react-scripts eject"

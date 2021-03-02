@@ -9,7 +9,6 @@ services:
     volumes:
       - ".:/app"
     environment:
-      - REACT_APP_API_ROOT=http://localhost:4000/api
       - PORT=8080
       - NODE_ENV=production
     ports:
