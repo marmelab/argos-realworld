@@ -1,6 +1,6 @@
 # argos-realworld
 
-This repository stores several versions of the database, API and client of [the realworld app](https://github.com/gothinkster/realworld), for digital footprint measurements. 
+This repository stores several versions of the database, API and client of [the realworld app](https://github.com/gothinkster/realworld), for digital footprint measurements.
 
 ## Included Versions
 
@@ -52,6 +52,7 @@ API_DIR=node-express CLIENT_DIR=react-redux make start
 Setup dockerized environment
 
 - make setup-tests
+- make restore
 
 Then run automated tests
 
@@ -69,6 +70,6 @@ Then run automated tests
   - `signin-button`
   - `logout-button`
   - `global-feed-link`
-- modify code such that API root takes value `process.env.REACT_APP_API_ROOT || "http://localhost:4000/api`
-  (`process.env.REACT_APP_API_ROOT` when tests are run in Docker)
+- modify code such that API root takes value `http://localhost:4000/api` when tests are run without Docker
+  or `http://api:4000/api` when tests are run in Docker
 - front PORT should be 8080
